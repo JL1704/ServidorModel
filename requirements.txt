@@ -5,3 +5,4 @@ joblib
 pillow
 numpy
 scikit-learn
+python-multipart
