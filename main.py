@@ -10,12 +10,12 @@ from io import BytesIO
 from PIL import Image
 
 # === 🚀 Crear app FastAPI ===
-app = FastAPI()
+app = FastAPI(title="Servidor Clasificación de Flores 🌸")
 
 # === ⚙️ CORS (ajusta dominios permitidos si quieres restringir) ===
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["*"],  # puedes poner ["https://tuapp.com"]
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -82,3 +82,11 @@ async def predict_flower(image: UploadFile = File(...)):
         )
     except Exception as e:
         return JSONResponse(content={"success": False, "message": str(e)}, status_code=500)
+
+# === 🌐 Endpoint GET raíz ===
+@app.get("/")
+async def root():
+    return {
+        "message": "Servidor de clasificación de flores 🌸 activo",
+        "usage": "Envía una imagen a /predict con el campo 'image' en form-data"
+    }
